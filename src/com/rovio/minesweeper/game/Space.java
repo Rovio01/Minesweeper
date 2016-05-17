@@ -24,7 +24,7 @@ public class Space {
 		marked=!marked;
 	}
 
-	public int getSurrounding() {
+	public int getValue() {
 		return surrounding;
 	}
 
