@@ -5,11 +5,11 @@ public class Game {
 	private int bombs;
 	private int x;
 	private int y;
-	
+
 	public Game(int bombs, int x, int y) {
 		this.bombs=bombs;
 		board=new Space[x][y];
-		
+
 		this.x=x;
 		this.y=y;
 		//System.out.println("Initialization successful");
@@ -29,7 +29,7 @@ public class Game {
 			board[bx][by]=new Space(-1);
 		}
 		//System.out.println("Bombs Placed");
-		
+
 		/*for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
 				try{
@@ -39,14 +39,14 @@ public class Game {
 				}
 			}
 		}
-		*/
-		
+		 */
+
 		for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
 				if (board[a][b].getValue()==0) {
 					//Count bombs
 					int surrounding=0;
-					
+
 					//This is the worst way to code this
 					if (a==0){
 						if (b==0) {
@@ -124,7 +124,7 @@ public class Game {
 
 					//Place the tile
 					board[a][b]=new Space(surrounding);
-					
+
 				}
 				/*
 				//Try block shouldn't be necessary anymore
@@ -133,15 +133,14 @@ public class Game {
 				} catch (NullPointerException n) {
 					System.out.println(""+a+" "+b+" null");
 				}
-				*/
+				 */
 			}
 		}
-		
+
 	}
-	
+
 	public String toString() {
 		String out="";
-		//TODO still needs to be finished
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<y;b++) {
 				if (board[a][b].getValue()==-1) 
@@ -155,8 +154,60 @@ public class Game {
 		}
 		return out;
 	}
-	
+
 	public static int toInt(boolean b) {
 		return b?1:0;
+	}
+
+	public Board getVisible() {
+		int[][] temp=new int[board.length][board[0].length];
+		for (int a=0;a<x;a++) {
+			for (int b=0;b<y;b++) {
+				if (board[a][b].isMarked())
+					temp[a][b]=-3;
+				else if (!board[a][b].isClicked())
+					temp[a][b]=-2;
+				else
+					temp[a][b]=board[a][b].getValue();
+			}
+		}
+		return new Board(temp);
+	}
+
+	public Board click(int x, int y) {
+		if (!board[x][y].isClicked()) {
+			board[x][y].click();
+			if (board[x][y].getValue()==0) {
+				try {
+					click(x-1,y-1);
+				} catch (Exception e) {}
+				try {
+					click(x-1,y);
+				} catch (Exception e) {}
+				try {
+					click(x,y-1);
+				} catch (Exception e) {}
+				try {
+					click(x-1,y+1);
+				} catch (Exception e) {}
+				try {
+					click(x+1,y-1);
+				} catch (Exception e) {}
+				try {
+					click(x,y+1);
+				} catch (Exception e) {}
+				try {
+					click(x+1,y);
+				} catch (Exception e) {}
+				try {
+					click(x+1,y+1);
+				} catch (Exception e) {}
+			}
+		}
+		return getVisible();
+	}
+	
+	public void flag(int x, int y) {
+		board[x][y].flag();
 	}
 }
