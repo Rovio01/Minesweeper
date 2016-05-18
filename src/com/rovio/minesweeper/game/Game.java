@@ -12,13 +12,13 @@ public class Game {
 		
 		this.x=x;
 		this.y=y;
-		System.out.println("Initialization successful");
+		//System.out.println("Initialization successful");
 		for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
 				board[a][b]=new Space(0);
 			}
 		}
-		System.out.println("Zero in every space");
+		//System.out.println("Zero in every space");
 		for(int i=0;i<bombs;i++) {
 			int bx=(int)(Math.random()*x);
 			int by=(int)(Math.random()*y);
@@ -28,7 +28,7 @@ public class Game {
 			}
 			board[bx][by]=new Space(-1);
 		}
-		System.out.println("Bombs Placed");
+		//System.out.println("Bombs Placed");
 		
 		/*for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
@@ -126,12 +126,14 @@ public class Game {
 					board[a][b]=new Space(surrounding);
 					
 				}
+				/*
 				//Try block shouldn't be necessary anymore
 				try{
 					System.out.println(""+a+" "+b+" "+board[a][b].getValue());
 				} catch (NullPointerException n) {
 					System.out.println(""+a+" "+b+" null");
 				}
+				*/
 			}
 		}
 		
