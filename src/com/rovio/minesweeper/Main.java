@@ -48,6 +48,8 @@ public class Main {
 		else
 			System.out.println("Sorry, you lost.");
 		System.out.println(game);
+		scan.next();
+		scan.close();
 	}
 
 }
