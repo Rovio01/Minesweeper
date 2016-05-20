@@ -1,12 +1,17 @@
 package com.rovio.minesweeper;
 
-import java.util.Scanner;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-import com.rovio.minesweeper.game.Board;
-import com.rovio.minesweeper.game.Game;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Main {
 
+	//Console main
+	/*
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		System.out.println("What gamemode would you like to play?");
@@ -51,5 +56,30 @@ public class Main {
 		scan.next();
 		scan.close();
 	}
-
+	*/
+	
+	//GUI main
+	public static void main(String[] args) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+	}
+	
+	public static void createAndShowGUI() {
+		JFrame frame=new JFrame("Minesweeper");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new GridBagLayout());
+		JPanel minefield=new JPanel(new GridBagLayout());
+		GridBagConstraints c=new GridBagConstraints();
+		JButton face=new JButton("")
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public static void addComponentsToPane(Container pane) {
+		pane.setLayout(new GridBagLayout());
+		
+	}
 }
