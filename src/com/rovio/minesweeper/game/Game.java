@@ -210,4 +210,20 @@ public class Game {
 	public void flag(int x, int y) {
 		board[x][y].flag();
 	}
+	
+	public int bombs() {
+		return bombs;
+	}
+	
+	public int flags() {
+		int out=0;
+		for(int a=0;a<x;a++) {
+			for(int b=0;b<y;b++) {
+				if(board[a][b].isMarked()) {
+					out++;
+				}
+			}
+		}
+		return out;
+	}
 }
