@@ -8,11 +8,15 @@ public class Space {
 	private int surrounding;
 	private boolean marked;
 	private boolean clicked;
+	private int x;
+	private int y;
 	
-	public Space(int surrounding) {
+	public Space(int surrounding, int x, int y) {
 		this.surrounding=surrounding;
 		marked=false;
 		clicked=false;
+		this.x=x;
+		this.y=y;
 	}
 	
 	public int click() {
@@ -36,5 +40,11 @@ public class Space {
 		return clicked;
 	}
 	
+	public int getX() {
+		return x;
+	}
 	
+	public int getY() {
+		return y;
+	}
 }

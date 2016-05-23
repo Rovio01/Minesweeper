@@ -1,6 +1,5 @@
 package com.rovio.minesweeper;
 
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Timer;
@@ -8,14 +7,16 @@ import java.util.TimerTask;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.rovio.minesweeper.ai.Solver;
+import com.rovio.minesweeper.game.Game;
+
 public class Main {
 
-	//Console-based game
+	//Console-based game, works
 	/*
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
@@ -65,7 +66,14 @@ public class Main {
 	
 	//GUI-based game (not finished)
 	public static void main(String[] args) {
-		new Main().execute();
+		Game game=new Game(10, 10, 10);
+		Solver solver=new Solver(game);
+		System.out.println(game);
+		game.click(0, 0);
+		System.out.println(solver.countFreeSquaresAround(0, 0));
+		game.flag(0, 1);
+		System.out.println(solver.countFreeSquaresAround(0, 0));
+		execute();
 	}
 	
 	//Icons
@@ -77,6 +85,7 @@ public class Main {
 	public static final Icon happyFace=new ImageIcon(Main.class.getResource("assets/faces/happyface.png"));
 	public static final Icon scaredFace=new ImageIcon(Main.class.getResource("assets/faces/scaredface.png"));
 	public static final Icon robot=new ImageIcon(Main.class.getResource("assets/faces/robot.png"));
+	public static final Icon robotClicked=new ImageIcon(Main.class.getResource("assets/faces/robotclicked.png"));
 	
 	//Numbers
 	public static final Icon dash=new ImageIcon(Main.class.getResource("assets/numbers/-.png"));
@@ -107,10 +116,11 @@ public class Main {
 	public static final Icon tile7=new ImageIcon(Main.class.getResource("assets/tiles/tile7.png"));
 	public static final Icon tile8=new ImageIcon(Main.class.getResource("assets/tiles/tile8.png"));
 	
-	int seconds=0;
+	static int seconds=0;
+	static Timer timer;
 	
 	//May or may not end up being static, haven't decided
-	public void execute() {
+	public static void execute() {
 		
 		JFrame frame=new JFrame("Minesweeper");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,42 +131,50 @@ public class Main {
 		JPanel minefield=new JPanel(new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		JButton face=new JButton(happyFace);
-		face.setContentAreaFilled(false);
-		face.setBorderPainted(false);
+		JLabel face=new JLabel(happyFace);
+		
 		c.gridx=1;
 		c.gridy=0;
 		frame.add(face, c);
 		
+		//Timer
 		JPanel timerPanel=new JPanel(new GridBagLayout());
+		c=new GridBagConstraints();
 		c.gridx=0;
 		c.gridy=0;
 		JLabel seconds1=new JLabel();
 		timerPanel.add(seconds1, c);
+		c=new GridBagConstraints();
 		c.gridx=1;
 		JLabel seconds2=new JLabel();
 		timerPanel.add(seconds2, c);
 		JLabel seconds3=new JLabel();
+		c=new GridBagConstraints();
 		c.gridx=2;
 		timerPanel.add(seconds3, c);
 		
-		Timer timer=new Timer();
+		timer=new Timer();
 		timer.scheduleAtFixedRate(new TimerTask(){
 			@Override
 			public void run() {
-				seconds++;
-				
 				setNumberPanel(seconds%10,seconds3);
 				setNumberPanel((seconds/10)%10,seconds2);
 				setNumberPanel((seconds/100)%100,seconds1);
+				seconds++;
 			}
 		}, 0, 1000);
 		
-		
+		c=new GridBagConstraints();
 		c.gridx=2;
 		c.gridy=0;
 		frame.add(timerPanel, c);
 		
+		
+		JPanel minesPanel=new JPanel(new GridBagLayout());
+		JLabel mines1=new JLabel();
+		
+		
+		c=new GridBagConstraints();
 		c.gridx=0;
 		c.gridy=1;
 		c.gridwidth=3;
@@ -164,11 +182,7 @@ public class Main {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
-	public static void addComponentsToPane(Container pane) {
-		pane.setLayout(new GridBagLayout());
-		
-	}
+
 	
 	//Sets the given JLabel to the specified integer between 0 and 9
 	public static void setNumberPanel (int val, JLabel panel) {
@@ -216,5 +230,7 @@ public class Main {
 		}
 	}
 	
-	
+	static void resetTimer() {
+		seconds=0;
+	}
 }

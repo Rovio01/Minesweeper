@@ -15,7 +15,7 @@ public class Game {
 		//System.out.println("Initialization successful");
 		for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
-				board[a][b]=new Space(0);
+				board[a][b]=new Space(0,a,b);
 			}
 		}
 		//System.out.println("Zero in every space");
@@ -26,7 +26,7 @@ public class Game {
 				bx=(int)(Math.random()*x);
 				by=(int)(Math.random()*y);
 			}
-			board[bx][by]=new Space(-1);
+			board[bx][by]=new Space(-1,bx,by);
 		}
 		//System.out.println("Bombs Placed");
 
@@ -123,7 +123,7 @@ public class Game {
 					}
 
 					//Place the tile
-					board[a][b]=new Space(surrounding);
+					board[a][b]=new Space(surrounding,a,b);
 
 				}
 				/*
@@ -175,7 +175,7 @@ public class Game {
 	}
 
 	public Board click(int x, int y) {
-		if (!board[x][y].isClicked()) {
+		if (!board[x][y].isClicked()&&!board[x][y].isMarked()) {
 			board[x][y].click();
 			if (board[x][y].getValue()==0) {
 				try {
@@ -225,5 +225,25 @@ public class Game {
 			}
 		}
 		return out;
+	}
+	
+	public int getWidth() {
+		return x;
+	}
+	
+	public int getHeight() {
+		return y;
+	}
+	
+	public boolean isSolved() {
+		
+		for (int a=0;a<x;a++) {
+			for (int b=0;b<x;b++) {
+				if ((board[a][b].getValue()!=-1&&!board[a][b].isClicked())) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
