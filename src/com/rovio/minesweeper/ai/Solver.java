@@ -1,10 +1,7 @@
 package com.rovio.minesweeper.ai;
 
-import java.util.ArrayList;
-
 import com.rovio.minesweeper.game.Board;
 import com.rovio.minesweeper.game.Game;
-import com.rovio.minesweeper.game.Space;
 
 public class Solver extends Thread {
 

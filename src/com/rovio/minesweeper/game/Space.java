@@ -1,6 +1,8 @@
 package com.rovio.minesweeper.game;
 
 public class Space {
+	//Not currently used
+	
 	//Surrounding values
 	//-1=bomb
 	//0=empty with none surrounding
