@@ -5,16 +5,16 @@ import com.rovio.minesweeper.game.Game;
 
 public class Solver extends Thread {
 
-	private Game game;
+	
 	private Board currentGame;
 	private int x,y;
 
 
-	public Solver(Game game) {
-		this.game=game;
-		currentGame=game.getVisible();
-		x=game.getWidth();
-		y=game.getWidth();
+	public Solver() {
+		
+		currentGame=Game.getVisible();
+		x=Game.getWidth();
+		y=Game.getWidth();
 	}
 
 	public void attemptFlagMine() {
@@ -26,7 +26,7 @@ public class Solver extends Thread {
 	}
 
 	public void run() {
-		while (!game.isSolved()) {
+		while (!Game.isSolved()) {
 			//TODO Solve the board
 			
 		}
@@ -78,19 +78,19 @@ public class Solver extends Thread {
 	}
 	
 	private void updateBoard() {
-		currentGame=game.getVisible();
+		currentGame=Game.getVisible();
 	}
 	
 	private void middleClick(int x, int y) {
 		if (currentGame.getSpace(x,y)>=0&&currentGame.getSpace(x, y)==countFlagsAround(x,y))
-		try{game.click(x-1, y-1);}catch(Exception e){}
-		try{game.click(x, y-1);}catch(Exception e){}
-		try{game.click(x-1, y);}catch(Exception e){}
-		try{game.click(x+1, y-1);}catch(Exception e){}
-		try{game.click(x-1, y+1);}catch(Exception e){}
-		try{game.click(x, y+1);}catch(Exception e){}
-		try{game.click(x+1, y);}catch(Exception e){}
-		try{game.click(x+1, y+1);}catch(Exception e){}
+		try{Game.click(x-1, y-1);}catch(Exception e){}
+		try{Game.click(x, y-1);}catch(Exception e){}
+		try{Game.click(x-1, y);}catch(Exception e){}
+		try{Game.click(x+1, y-1);}catch(Exception e){}
+		try{Game.click(x-1, y+1);}catch(Exception e){}
+		try{Game.click(x, y+1);}catch(Exception e){}
+		try{Game.click(x+1, y);}catch(Exception e){}
+		try{Game.click(x+1, y+1);}catch(Exception e){}
 		updateBoard();
 	}
 	

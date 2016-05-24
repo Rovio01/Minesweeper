@@ -16,7 +16,7 @@ import com.rovio.minesweeper.game.Game;
 
 public class Main {
 
-	//Console-based game, works
+	//Console-based game, used to work (haven't tested, probably doesn't)
 	/*
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Main {
 		/*
 		Game game=new Game(10, 10, 10);
 		Solver solver=new Solver(game);
-		System.out.println(game);
+		System.out.println(Game.getString(););
 		game.click(0, 0);
 		System.out.println(solver.countFreeSquaresAround(0, 0));
 		game.flag(0, 1);

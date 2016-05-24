@@ -2,22 +2,25 @@ package com.rovio.minesweeper.game;
 
 public class Game {
 	//-1=bomb
-	//
-	private int[][] board;
-	private boolean[][] flags;
-	private boolean[][] visible;
-	private int bombs;
-	private int x;
-	private int y;
+	//0=Empty with no bombs surrounding
+	//1-8=Empty with that many bombs surrounding
+	private static int[][] board;
+	//Same size as board, if true, space is flagged
+	private static boolean[][] flags;
+	//Same size as board, if false, space is not visible
+	private static boolean[][] visible;
+	private static int bombs;
+	private static int x;
+	private static int y;
 
-	public Game(int bombs, int x, int y) {
-		this.bombs=bombs;
+	public static void newGame(int bombs, int x, int y) {
+		Game.bombs=bombs;
 		board=new int[x][y];
 		flags=new boolean[x][y];
 		visible=new boolean[x][y];
 
-		this.x=x;
-		this.y=y;
+		Game.x=x;
+		Game.y=y;
 		//System.out.println("Initialization successful");
 		
 		//Actually unnecessary after removing Space class
@@ -152,8 +155,8 @@ public class Game {
 		}
 
 	}
-
-	public String toString() {
+	//toString can't be static, so it needs to be called explicitly, otherwise it won't work
+	public static String getString() {
 		String out="";
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<y;b++) {
@@ -173,7 +176,7 @@ public class Game {
 		return b?1:0;
 	}
 
-	public Board getVisible() {
+	public static Board getVisible() {
 		int[][] temp=new int[board.length][board[0].length];
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<y;b++) {
@@ -188,7 +191,7 @@ public class Game {
 		return new Board(temp);
 	}
 
-	public void click(int x, int y) {
+	public static void click(int x, int y) {
 		if (!visible[x][y]&&!flags[x][y]) {
 			visible[x][y]=true;
 			if (board[x][y]==0) {
@@ -220,15 +223,15 @@ public class Game {
 		}
 	}
 	
-	public void flag(int x, int y) {
+	public static void flag(int x, int y) {
 		flags[x][y]=!flags[x][y];
 	}
 	
-	public int bombs() {
+	public static int bombs() {
 		return bombs;
 	}
 	
-	public int flags() {
+	public static int flags() {
 		int out=0;
 		for(int a=0;a<x;a++) {
 			for(int b=0;b<y;b++) {
@@ -240,15 +243,15 @@ public class Game {
 		return out;
 	}
 	
-	public int getWidth() {
+	public static int getWidth() {
 		return x;
 	}
 	
-	public int getHeight() {
+	public static int getHeight() {
 		return y;
 	}
 	
-	public boolean isSolved() {
+	public static boolean isSolved() {
 		
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<x;b++) {
@@ -260,7 +263,7 @@ public class Game {
 		return true;
 	}
 	
-	public int getSpace(int x, int y) {
+	public static int getSpace(int x, int y) {
 		if (flags[x][y]) {
 			return -3;
 		}
