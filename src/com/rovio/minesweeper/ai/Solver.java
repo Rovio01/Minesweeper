@@ -17,32 +17,22 @@ public class Solver extends Thread {
 		y=game.getWidth();
 	}
 
-	public void iterate() {
-		//Strategies section
+	public void attemptFlagMine() {
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<y;b++) {
-				//If it has enough bombs around it, open all other surrounding spaces
-
+				middleClick(a,b);
 			}
 		}
-
-		//Update instance variables
-		currentGame=game.getVisible();
 	}
 
 	public void run() {
 		while (!game.isSolved()) {
 			//TODO Solve the board
+			
 		}
 	}
 
-	private int getSurroundingBombs(int a, int b) {
-		int out=0;
-
-		return out;
-	}
-
-	private int countFlagsAround(boolean[][] array, int x, int y) {
+	private int countFlagsAround(int x, int y) {
 		int mines = 0;
 
 		// See if we're on the edge of the board
@@ -89,5 +79,18 @@ public class Solver extends Thread {
 	
 	private void updateBoard() {
 		currentGame=game.getVisible();
+	}
+	
+	private void middleClick(int x, int y) {
+		if (currentGame.getSpace(x,y)>=0&&currentGame.getSpace(x, y)==countFlagsAround(x,y))
+		try{game.click(x-1, y-1);}catch(Exception e){}
+		try{game.click(x, y-1);}catch(Exception e){}
+		try{game.click(x-1, y);}catch(Exception e){}
+		try{game.click(x+1, y-1);}catch(Exception e){}
+		try{game.click(x-1, y+1);}catch(Exception e){}
+		try{game.click(x, y+1);}catch(Exception e){}
+		try{game.click(x+1, y);}catch(Exception e){}
+		try{game.click(x+1, y+1);}catch(Exception e){}
+		updateBoard();
 	}
 }

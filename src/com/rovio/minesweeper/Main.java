@@ -66,6 +66,7 @@ public class Main {
 	
 	//GUI-based game (not finished)
 	public static void main(String[] args) {
+		/*
 		Game game=new Game(10, 10, 10);
 		Solver solver=new Solver(game);
 		System.out.println(game);
@@ -73,11 +74,12 @@ public class Main {
 		System.out.println(solver.countFreeSquaresAround(0, 0));
 		game.flag(0, 1);
 		System.out.println(solver.countFreeSquaresAround(0, 0));
+		*/
 		execute();
 	}
 	
 	//Icons
-	
+	//I wish there was a way to condense this in Eclipse, but putting brackets around it doesn't work
 	//Faces
 	public static final Icon coolFace=new ImageIcon(Main.class.getResource("assets/faces/coolface.png"));
 	public static final Icon deadFace=new ImageIcon(Main.class.getResource("assets/faces/deadface.png"));
@@ -121,7 +123,7 @@ public class Main {
 	
 	//May or may not end up being static, haven't decided
 	public static void execute() {
-		
+		//TODO finish the GUI
 		JFrame frame=new JFrame("Minesweeper");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new GridBagLayout());
@@ -232,5 +234,10 @@ public class Main {
 	
 	static void resetTimer() {
 		seconds=0;
+		//TODO resync the timer
+	}
+	
+	public static void setTileImage(JLabel tile, int num) {
+		//TODO
 	}
 }

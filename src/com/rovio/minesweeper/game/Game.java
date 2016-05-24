@@ -246,4 +246,8 @@ public class Game {
 		}
 		return true;
 	}
+	
+	public Space getSpace(int x, int y) {
+		return board[x][y];
+	}
 }

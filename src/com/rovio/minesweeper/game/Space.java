@@ -19,13 +19,19 @@ public class Space {
 		this.y=y;
 	}
 	
+	//Returns -1 if flagged
 	public int click() {
-		clicked=true;
-		return surrounding;
+		if (!marked) {
+			clicked=true;
+			return surrounding;
+		}
+		return -1;
 	}
 	
 	public void flag() {
-		marked=!marked;
+		if (!clicked) {
+			marked=!marked;
+		}
 	}
 
 	public int getValue() {
