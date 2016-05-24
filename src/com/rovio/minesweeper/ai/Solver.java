@@ -1,7 +1,10 @@
 package com.rovio.minesweeper.ai;
 
+import java.util.ArrayList;
+
 import com.rovio.minesweeper.game.Board;
 import com.rovio.minesweeper.game.Game;
+import com.rovio.minesweeper.game.Space;
 
 public class Solver extends Thread {
 
@@ -92,5 +95,13 @@ public class Solver extends Thread {
 		try{game.click(x+1, y);}catch(Exception e){}
 		try{game.click(x+1, y+1);}catch(Exception e){}
 		updateBoard();
+	}
+	
+	private void tankRecurse(Board possibleBoard, int k) {
+		for (int a=0;a<x;a++) {
+			for (int b=0;b<y;b++) {
+				
+			}
+		}
 	}
 }
