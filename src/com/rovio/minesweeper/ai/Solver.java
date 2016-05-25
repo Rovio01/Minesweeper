@@ -310,11 +310,12 @@ public class Solver {
 		ArrayList<Pair> allEmptyTiles=new ArrayList<Pair>();
 		
 		borderOptimization=false;
+		updateBoard();
 		for (int a=0;a<x;a++) 
 			for (int b=0;b<y;b++) 
 				if(onScreen(a,b)==-2&&!Game.isFlagged(a, b))
 					allEmptyTiles.add(new Pair(a,b));
-		
+		updateBoard();
 		for (int a=0;a<x;a++) 
 			for (int b=0;b<y;b++) 
 				if(isBoundary(currentGame,a,b)&&!Game.isFlagged(a, b))
@@ -523,7 +524,7 @@ public class Solver {
 	
 	//Adapted from https://github.com/luckytoilet/MSolver
 	private static void tankRecurse(ArrayList<Pair> borderTiles, int k) {
-		System.out.println("Recursing "+borderTiles);
+		System.out.println("Recursing "+borderTiles+" "+knownMines+" "+knownEmpty);
 	    // Return if at this point, it's already inconsistent
 	    int flagCount = 0;
 	    for(int i=0; i<x; i++)
@@ -549,14 +550,14 @@ public class Solver {
 	        
 	        // Scenario 1: too many mines
 	        if(numFlags > num) {
-	        	System.out.println("Returning because too many mines");
+	        	System.out.println("Returning because too many mines "+numFlags+" "+num+" "+i+" "+j);
 	        	System.out.println("");
 	        	return;
 	        }
 
 	        // Scenario 2: too many empty
 	        if(surround - numFree < num) {
-	        	System.out.println("Returning because too many empty");
+	        	System.out.println("Returning because too many empty "+surround+" "+numFree+" "+num+" "+i+" "+j);
 	        	return;
 	        }
 	      }
