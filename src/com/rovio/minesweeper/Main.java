@@ -70,7 +70,7 @@ public class Main {
 	//AI Testing main
 	public static void main(String[] args) {
 		long start=System.currentTimeMillis();
-		Game.newGame(99, 16, 30);
+		Game.newGame(10, 10, 10);
 		Game.click(0, 0);
 		System.out.println(Game.getVisible());
 		Solver.run();

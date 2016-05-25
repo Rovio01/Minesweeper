@@ -149,8 +149,11 @@ public class Solver {
 	
 	public static int iterations=0;
 	private static boolean notLost=true;
+	private static Board temp;
+	private static Board temp2=new Board(new int[][]{{0}});
 	public static void run() {
 		startSolver();
+		temp=currentGame.clone();
 		Scanner scan=new Scanner(System.in);
 		//System.out.println("Starting the Solver");
 		while (Game.isSolved()==0&&notLost) {
@@ -163,7 +166,10 @@ public class Solver {
 			System.out.println(currentGame);
 			System.out.println(""+Game.isSolved());
 			updateBoard();
-			String useless=scan.nextLine();
+			//String useless=scan.nextLine();
+			temp2=temp.clone();
+			temp=currentGame.clone();
+			if (currentGame.equals(temp2)) break;
 		}
 		/*
 		for(int a=0;a<x;a++) {
