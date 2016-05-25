@@ -2,6 +2,7 @@ package com.rovio.minesweeper;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,11 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.rovio.minesweeper.ai.Solver;
+import com.rovio.minesweeper.game.Board;
 import com.rovio.minesweeper.game.Game;
 
 public class Main {
 
-	//Console-based game, used to work (haven't tested, probably doesn't)
+	//Console-based game, works
 	/*
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
@@ -26,10 +28,10 @@ public class Main {
 		int[] defaultMines=new int[]{10,40,99};
 		int[] defaultWidth=new int[]{8,16,16};
 		int[] defaultHeight=new int[]{8,16,30};
-		Game game=new Game(defaultMines[gamemode],defaultHeight[gamemode],defaultWidth[gamemode]);
+		Game.newGame(defaultMines[gamemode],defaultHeight[gamemode],defaultWidth[gamemode]);
 		//Uncomment to cheat
 		//System.out.println(game);
-		System.out.println(game.getVisible());
+		System.out.println(Game.getVisible());
 		boolean repeat=true;
 		boolean win=false;
 		while (repeat) {
@@ -39,7 +41,8 @@ public class Main {
 			int x=scan.nextInt();
 			int y=scan.nextInt();
 			if (flag) {
-				Board temp=game.click(x, y);
+				Game.click(x, y);
+				Board temp=Game.getVisible();
 				if (temp.getSpace(x, y)==-1) {
 					repeat=false;
 					win=false;
@@ -50,21 +53,37 @@ public class Main {
 				}
 			}
 			else {
-				game.flag(x, y);
+				Game.flag(x, y);
 			}
-			System.out.println(game.getVisible());
+			System.out.println(Game.getVisible());
 		}
 		if (win)
 			System.out.println("Congratulations, you won!");
 		else
 			System.out.println("Sorry, you lost.");
-		System.out.println(game);
+		System.out.println(Game.getString());
 		scan.next();
 		scan.close();
 	}
 	*/
 	
+	//AI Testing main
+	public static void main(String[] args) {
+		long start=System.currentTimeMillis();
+		Game.newGame(40, 16, 16);
+		Game.click(0, 0);
+		System.out.println(Game.getVisible());
+		Solver.run();
+		System.out.println(Game.getString());
+		if (Game.isSolved()==-1) {
+			System.out.println("Loss in "+Solver.iterations+" iterations over "+((System.currentTimeMillis()-start)/1000.0)+" seconds");
+			return;
+		}
+		System.out.println("Solved in "+Solver.iterations+" iterations over "+((System.currentTimeMillis()-start)/1000.0)+" seconds");
+	}
+	
 	//GUI-based game (not finished)
+	/*
 	public static void main(String[] args) {
 		/*
 		Game game=new Game(10, 10, 10);
@@ -74,9 +93,11 @@ public class Main {
 		System.out.println(solver.countFreeSquaresAround(0, 0));
 		game.flag(0, 1);
 		System.out.println(solver.countFreeSquaresAround(0, 0));
-		*/
+		* /
+		//Remove above space if uncommenting this method
 		execute();
 	}
+	*/
 	
 	//Icons
 	//I wish there was a way to condense this in Eclipse, but putting brackets around it doesn't work

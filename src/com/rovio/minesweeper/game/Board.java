@@ -55,4 +55,18 @@ public class Board {
 		}
 		return out;
 	}
+	
+	public boolean equals(Board board) {
+		if (visible.length!=board.getBoard().length||visible[0].length!=board.getBoard()[0].length) return false;
+		for (int a=0;a<visible.length;a++) {
+			for (int b=0;b<visible[0].length;b++) {
+				if (visible[a][b]!=board.getSpace(a, b)) return false;
+			}
+		}
+		return true;
+	}
+	
+	public Board clone() {
+		return new Board(visible);
+	}
 }

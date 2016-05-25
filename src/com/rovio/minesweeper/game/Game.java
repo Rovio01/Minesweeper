@@ -224,7 +224,9 @@ public class Game {
 	}
 	
 	public static void flag(int x, int y) {
-		flags[x][y]=!flags[x][y];
+		if (!visible[x][y]) {
+			flags[x][y]=!flags[x][y];
+		}
 	}
 	
 	public static int bombs() {
@@ -251,16 +253,19 @@ public class Game {
 		return y;
 	}
 	
-	public static boolean isSolved() {
+	public static int isSolved() {
 		
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<x;b++) {
+				if (board[a][b]==-1&&visible[a][b]) {
+					return -1;
+				}
 				if ((board[a][b]!=-1&&!visible[a][b])) {
-					return false;
+					return 0;
 				}
 			}
 		}
-		return true;
+		return 1;
 	}
 	
 	public static int getSpace(int x, int y) {
@@ -272,5 +277,17 @@ public class Game {
 		}
 		
 		return board[x][y];
+	}
+	
+	public static boolean isFlagged(int x, int y) {
+		return flags[x][y];
+	}
+	
+	public static boolean[][] getFlags() {
+		return flags;
+	}
+	
+	public static void setFlag(int x, int y, boolean value) {
+		flags[x][y]=value;
 	}
 }
