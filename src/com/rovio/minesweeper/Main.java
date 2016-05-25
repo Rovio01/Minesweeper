@@ -70,7 +70,7 @@ public class Main {
 	//AI Testing main
 	public static void main(String[] args) {
 		long start=System.currentTimeMillis();
-		Game.newGame(40, 16, 16);
+		Game.newGame(99, 16, 30);
 		Game.click(0, 0);
 		System.out.println(Game.getVisible());
 		Solver.run();
@@ -143,6 +143,7 @@ public class Main {
 	static Timer timer;
 	
 	//May or may not end up being static, haven't decided
+	//Is not being executed right now
 	public static void execute() {
 		//TODO finish the GUI
 		JFrame frame=new JFrame("Minesweeper");

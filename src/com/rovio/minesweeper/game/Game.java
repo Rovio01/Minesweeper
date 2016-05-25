@@ -37,7 +37,7 @@ public class Game {
 		for(int i=0;i<bombs;i++) {
 			int bx=(int)(Math.random()*x);
 			int by=(int)(Math.random()*y);
-			while(board[bx][by]!=0) {
+			while(board[bx][by]!=0||bx==0&&by==0) {
 				bx=(int)(Math.random()*x);
 				by=(int)(Math.random()*y);
 			}
@@ -227,6 +227,8 @@ public class Game {
 		if (!visible[x][y]) {
 			flags[x][y]=!flags[x][y];
 		}
+		if (board[x][y]==-1)
+			System.exit(0);
 	}
 	
 	public static int bombs() {
@@ -258,9 +260,11 @@ public class Game {
 		for (int a=0;a<x;a++) {
 			for (int b=0;b<x;b++) {
 				if (board[a][b]==-1&&visible[a][b]) {
+					System.out.println("-1");
 					return -1;
 				}
 				if ((board[a][b]!=-1&&!visible[a][b])) {
+					System.out.println(0);
 					return 0;
 				}
 			}
