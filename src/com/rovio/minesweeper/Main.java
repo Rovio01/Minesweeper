@@ -17,6 +17,14 @@ import com.rovio.minesweeper.game.Board;
 import com.rovio.minesweeper.game.Game;
 
 public class Main {
+	
+	//Default sizes
+	//Easy: 9x9 with 10 mines
+	//Intermediate: 16x16 with 40 mines
+	//Expert: 16x30 with 99 mines
+	static int width=16;
+	static int height=30;
+	static int mines=99;
 
 	//Console-based game, works
 	/*
@@ -70,7 +78,7 @@ public class Main {
 	//AI Testing main
 	public static void main(String[] args) {
 		long start=System.currentTimeMillis();
-		Game.newGame(10, 10, 10);
+		Game.newGame(mines, width, height);
 		Game.click(0, 0);
 		System.out.println(Game.getVisible());
 		Solver.run();
